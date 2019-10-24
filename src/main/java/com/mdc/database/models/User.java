@@ -2,6 +2,7 @@ package com.mdc.database.models;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -10,8 +11,8 @@ import java.util.List;
 @Entity
 @Table(name = "USERS")
 @Data
-@Builder
-@Audited
+@Audited(withModifiedFlag = true)
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue
@@ -22,7 +23,9 @@ public class User {
     private String firstName;
     private String lastName;
 
-    @OneToMany
-    @JoinTable(name = "ROLES" ,joinColumns = @JoinColumn( name="UID"))
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "uid")
     List<Role> roleList;
+
+
 }

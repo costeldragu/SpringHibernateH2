@@ -2,6 +2,7 @@ package com.mdc.database.models;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -9,12 +10,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ROLES")
 @Data
-@Builder
-@Audited
+@Audited(withModifiedFlag = true)
+@NoArgsConstructor
 public class Role {
     @Id
     @GeneratedValue
     private Long rid;
-    private Long uid;
     private String roleName;
+
+
 }
